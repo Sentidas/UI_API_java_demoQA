@@ -1,15 +1,19 @@
+package tests.api_UI_tests;
+
 import io.restassured.response.Response;
+import models.LoginResponseModel;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Cookie;
 import java.util.Hashtable;
 import java.util.Map;
 
+import static Specs.Spec.requestSpec;
+import static Specs.Spec.responseSpec;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
 
 public class LoginTest extends TestBase {
 
@@ -25,42 +29,34 @@ public class LoginTest extends TestBase {
     @Test
     void successfulLoginWithApiTest() {
         Map<String, String> authData = new Hashtable<>();
-        authData.put("userName", login);
-        authData.put("password", password);
+        authData.put("userName", TestBase.login);
+        authData.put("password", TestBase.password);
 
-        Response authResponse = given()
-                .relaxedHTTPSValidation()
-                .log().uri()
-                .log().method()
-                .log().body()
-                .contentType(JSON)
+        LoginResponseModel authResponse = given(requestSpec)
                 .body(authData)
                 .when()
-                .post("https://demoqa.com/Account/v1/Login")
+                .post("/Account/v1/Login")
                 .then()
-                .log().status()
-                .log().body()
+                .spec(responseSpec)
                 .statusCode(200)
-                .extract().response();
+                .extract().as(LoginResponseModel.class);
 
         open("/favicon.ico");
-        getWebDriver().manage().addCookie(new Cookie("userID", authResponse.path("userId")));
-        getWebDriver().manage().addCookie(new Cookie("expires", authResponse.path("expires")));
-        getWebDriver().manage().addCookie(new Cookie("token", authResponse.path("token")));
+        getWebDriver().manage().addCookie(new Cookie("userID", authResponse.getUserId()));
+        getWebDriver().manage().addCookie(new Cookie("expires", authResponse.getExpires()));
+        getWebDriver().manage().addCookie(new Cookie("token", authResponse.getToken()));
 
         open("/profile");
-        $("#userName-value").shouldHave(text(login));
+        $("#userName-value").shouldHave(text(TestBase.login));
     }
 
     @Test
     void  getBooks() {
-        Response responseGetBooksList = given()
-                .relaxedHTTPSValidation()
-                .log().all()
+        Response responseGetBooksList = given(requestSpec)
                 .when()
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
-                .log().all()
+                .spec(responseSpec)
                 .extract().response();
 
         String Book = responseGetBooksList.path("books[3].isbn");
