@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import static com.codeborne.selenide.Selectors.byText;
 import io.qameta.allure.Step;
 import tests.api_UI_tests.TestBase;
 
@@ -17,8 +18,6 @@ public class ProfilePage extends BasePage {
         return this;
     }
 
-    ;
-
     @Step("Проверка имени пользователя в профиле")
     public ProfilePage checkNameUserInProfile() {
         userName.shouldHave(text(TestBase.login));
@@ -27,12 +26,12 @@ public class ProfilePage extends BasePage {
 
     @Step("Удаление книги")
     public void deleteAllBooks() {
-        $("#delete-record-undefined").click();
+        $(byText("Delete All Books")).scrollTo().click();
+      //  $("#delete-record-undefined").click();
         $("#closeSmallModal-ok").click();
         switchTo().alert().accept();
-
     }
-};
+}
 
 
 
