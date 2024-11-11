@@ -2,6 +2,7 @@ package tests.api_UI_tests;
 
 import helpers.WithLogin;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
 
@@ -23,9 +24,10 @@ public class LoginTest extends TestBase {
 
     @Test
     @WithLogin
+    @Tag("API_UI")
     @DisplayName("Успешная авторизация через API и проверка имени пользователя в профиле через  UI")
     void successfulLoginWithApiTest() {
-        ProfilePage  profile = new ProfilePage();
+        ProfilePage profile = new ProfilePage();
         profile.openPage()
                 .checkNameUserInProfile();
     }

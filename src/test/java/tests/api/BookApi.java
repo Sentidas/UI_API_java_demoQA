@@ -12,10 +12,11 @@ import static Specs.Spec.responseSpec;
 import static io.restassured.RestAssured.given;
 
 public class BookApi {
-
+    public static String nameBook;
+    public static String idBook;
 
     @Step("Получение списка книг для добавления в корзину")
-    void getBooksAll() {
+    public void getBooksAll() {
         Response responseGetBooksList = given(requestSpec)
                 .when()
                 .get("https://demoqa.com/BookStore/v1/Books")
@@ -25,7 +26,7 @@ public class BookApi {
     }
 
     @Step("Получение id книги из списка книг")
-    public static String getIDBook() {
+    public String getIDBook() {
         Response responseGetBooksList = given(requestSpec)
                 .when()
                 .get("https://demoqa.com/BookStore/v1/Books")
@@ -33,7 +34,7 @@ public class BookApi {
                 .spec(responseSpec)
                 .extract().response();
         List<String> bookList = responseGetBooksList.path("books.isbn");
-        String idBook = bookList.get(new Random().nextInt(bookList.size()));
+        idBook = bookList.get(new Random().nextInt(bookList.size()));
         System.out.println("Book is " + idBook);
         return idBook;
     }
@@ -56,5 +57,15 @@ public class BookApi {
                 .extract().response();
     }
 
-
+    @Step("Получение данных по id книги")
+    public String getNameBookWithId(String isbn) {
+        Response responseGetBooksList = given(requestSpec)
+                .queryParam("ISBN", isbn)
+                .when()
+                .get("/BookStore/v1/Book")
+                .then()
+                .spec(responseSpec)
+                .extract().response();
+        return nameBook = responseGetBooksList.path("title");
+    }
 }
