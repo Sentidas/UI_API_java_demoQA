@@ -2,6 +2,7 @@ package tests.apiTests;
 
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import tests.api.LoginApi;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -10,9 +11,10 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
-public class DeleteBookApi extends TestBase {
+public class DeleteBookApiTests extends TestBase {
     @Test
     void negative400DeleteBookApiTest() {
+
 
         Map<String, String> authData = new Hashtable<>();
         authData.put("userName", TestBase.login);

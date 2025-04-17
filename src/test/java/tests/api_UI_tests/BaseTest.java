@@ -7,22 +7,22 @@ import org.junit.jupiter.api.BeforeAll;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
-public class TestBase {
+public class BaseTest {
 
-        public static String login = "Bravotest",
-                password = "Bravotest1234@";
+    public static String login = "test123456",
+            password = "Test123456@";
 
 
     @BeforeAll
     static void setup() {
 
-    Configuration.pageLoadStrategy = "eager";
+        Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
         RestAssured.baseURI = "https://demoqa.com";
     }
 
-@AfterEach
+    @AfterEach
     void shutDown() {
         closeWebDriver();
-}
+    }
 }
