@@ -38,7 +38,7 @@ public class DeleteBookTest extends BaseTest {
         ProfilePage page = new ProfilePage();
 
         page.openPage();
-        page.deleteRandomBook(addedBooks, 3)
+        page.deleteBooks(addedBooks, 3)
                 .checkDeletedAllBooks();
     }
 }

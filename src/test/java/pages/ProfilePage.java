@@ -49,7 +49,7 @@ public class ProfilePage extends BasePage {
     }
 
     @Step("Удаление книги")
-    public ProfilePage deleteRandomBook(List<BookDetailsModel> addedBooks, int countOfBooksForDelete) {
+    public ProfilePage deleteBooks(List<BookDetailsModel> addedBooks, int countOfBooksForDelete) {
         for (BookDetailsModel book : addedBooks) {
             String titleBook = book.title();
             bookRows.findBy(text(titleBook)).find("#delete-record-undefined").click();

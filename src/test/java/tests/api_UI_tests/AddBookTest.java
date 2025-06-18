@@ -22,7 +22,7 @@ public class AddBookTest extends BaseTest {
     @Test
     @Tag("API_UI")
     @WithLogin
-  //  @ClearProfileAfterTest()
+    @ClearProfileAfterTest()
     @EnableDynamicTestName
    // @DisplayName("Добавление одной случайной книги в профиль пользователя")
     public void bookShouldAppearInProfileAfterApiAddition(UserSession session) {
@@ -40,7 +40,7 @@ public class AddBookTest extends BaseTest {
 
     @Test
     @WithLogin
-            // @ClearProfileAfterTest()
+    @ClearProfileAfterTest()
     @Severity(SeverityLevel.CRITICAL)
     @Link(value = "swagger", url = "")
     @Tag("API_UI")
@@ -54,22 +54,5 @@ public class AddBookTest extends BaseTest {
 
         new ProfilePage().openPage()
                 .checkBookWasAddedToProfile(addedBooks);
-    }
-    @Test
-    @Feature("Добавление фичи через аннотацию")
-    @Story("Добавление стори через аннотацию")
-    @Owner("Добавление автора через аннотацию")
-    @Severity(SeverityLevel.CRITICAL)
-    @Link(value = "swagger", url = "http")
-    @DisplayName("Добавление имени теста через аннотации")
-    public void testDynamicLabels() {
-        Allure.getLifecycle().updateTestCase(
-                t -> t.setName("Добавление имени теста через Allure")
-        );
-        Allure.feature("Добавление фичи через Allure");
-        Allure.story("Добавление стори через аннотацию");
-        Allure.label("owner", "Добавление автора через лейбл Allure");
-        Allure.label("severity", SeverityLevel.CRITICAL.value());
-        Allure.link("swagger", "http");
     }
 }

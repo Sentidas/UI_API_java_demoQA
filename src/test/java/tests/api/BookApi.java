@@ -42,19 +42,19 @@ public class BookApi {
     @Step("Добавление одной книги по ISBN")
     public BookApi addSingleBookByIsbn(String isbn) {
 
-        AddBookRequestModel book = new AddBookRequestModel();
-        book.setUserId(session.userId());
+//        AddBookRequestModel book = new AddBookRequestModel();
+//        book.setUserId(session.userId());
+//
+//        book.setCollectionOfIsbns(List.of(AddBookRequestModel.Isbn.of(isbn)));
 
-        AddBookRequestModel.Isbn bookIsbn = new AddBookRequestModel.Isbn();
-        bookIsbn.setIsbn(isbn);
-        book.setCollectionOfIsbns(List.of(bookIsbn));
+        AddBookRequestModel book = AddBookRequestModel.of(session.userId(),
+                List.of(AddBookRequestModel.Isbn.of(isbn)));
 
         given(requestSpecAuth(session))
                 .body(book)
                 .post("/BookStore/v1/Books")
                 .then()
                 .spec(responseSpec)
-
                 .statusCode(201)
                 .extract().response();
         return this;

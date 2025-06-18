@@ -1,6 +1,8 @@
 name: test
 
-on: [ push ]  # запускать при любом push в любую ветку
+on:
+  push:
+    branches: [ main ]   # запускать только при push в ветку main
 
 jobs:
   test:
