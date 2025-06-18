@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","6797","Успешная авторизация через UI","","Wed Jun 18 16:44:45 GMT 2025","failed","Wed Jun 18 16:44:52 GMT 2025","","tests.api_UI.LoginTest","tests.api_UI.LoginTest","loginUITest"
+"","4467","Добавлена книга: Understanding ECMAScript 6","","Wed Jun 18 16:44:36 GMT 2025","passed","Wed Jun 18 16:44:41 GMT 2025","","tests.api_UI.AddBookTest","tests.api_UI.AddBookTest","bookShouldAppearInProfileAfterApiAddition"
+"","12742","Добавлены книги: Learning JavaScript Design Patterns, Programming JavaScript Applications, Eloquent JavaScript, Second Edition, Speaking JavaScript","","Wed Jun 18 16:44:23 GMT 2025","failed","Wed Jun 18 16:44:36 GMT 2025","","tests.api_UI.AddBookTest","tests.api_UI.AddBookTest","addBooks"
+"","4714","Удаление всех книг из корзины пользователя","","Wed Jun 18 16:44:41 GMT 2025","passed","Wed Jun 18 16:44:45 GMT 2025","","tests.api_UI.DeleteBookTest","tests.api_UI.DeleteBookTest","deleteAllBooks"
+"","0","Удаление нескольких книг из корзины пользователя","","Wed Jun 18 16:44:45 GMT 2025","skipped","Wed Jun 18 16:44:45 GMT 2025","","tests.api_UI.DeleteBookTest","tests.api_UI.DeleteBookTest","deleteBook"
+"","2984","Успешная авторизация через API и проверка имени пользователя в профиле через UI","","Wed Jun 18 16:44:52 GMT 2025","passed","Wed Jun 18 16:44:55 GMT 2025","","tests.api_UI.LoginTest","tests.api_UI.LoginTest","successfulLoginWithApiTest"
