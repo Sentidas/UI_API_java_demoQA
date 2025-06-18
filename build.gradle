@@ -52,3 +52,19 @@ tasks.withType(Test) {
         }
     }
 }
+test {
+    doFirst {
+        def remoteUrl = System.getProperty("selenide.remote")
+        if (remoteUrl) {
+            try {
+                def url = new URL(remoteUrl.replace("/wd/hub", "/status"))
+                def connection = url.openConnection()
+                connection.connectTimeout = 3000
+                connection.readTimeout = 3000
+                connection.connect()
+            } catch (Exception e) {
+                throw new GradleException("❌ Selenoid is not reachable at $remoteUrl")
+            }
+        }
+    }
+}
