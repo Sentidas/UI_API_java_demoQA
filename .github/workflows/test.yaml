@@ -9,42 +9,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Клонируем проект
+      #  Клонируем проект
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2. Устанавливаем Java 17
+      # Устанавливаем Java 17
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      # 3. Запускаем Selenoid
+      #  Запускаем Selenoid
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
 
-      # 4. Ожидаем, пока Selenoid поднимется
-      - name: Wait for Selenoid to be ready
-        run: |
-          for i in {1..20}; do
-            if curl -s http://localhost:4444/status | grep -q "total"; then
-              echo "✅ Selenoid is up!"
-              break
-            fi
-            echo "⏳ Waiting for Selenoid..."
-            sleep 2
-          done
-
-      # 5. Дополнительная проверка — Selenoid точно доступен
-      - name: Ensure Selenoid is reachable
-        run: |
-          curl -s --fail http://localhost:4444/status | grep -q "total" || {
-            echo "❌ Selenoid is not responding. Exiting..."
-            exit 1
-          }
-
-      # 6. Делаем gradlew исполняемым
+      #  Делаем gradlew исполняемым (актуально для windows)
       - name: Make gradlew executable
         run: chmod +x gradlew
 

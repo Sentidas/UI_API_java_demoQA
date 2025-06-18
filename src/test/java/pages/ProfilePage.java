@@ -1,10 +1,10 @@
 package pages;
 
+import app.config.TestCredentials;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import models.BookDetailsModel;
-import tests.api_UI_tests.BaseTest;
+import app.models.BookDetailsModel;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class ProfilePage extends BasePage {
 
     @Step("Проверка имени пользователя в профиле")
     public ProfilePage checkNameUserInProfile() {
-        userName.shouldHave(text(BaseTest.login));
+        userName.shouldHave(text(TestCredentials.USERNAME));
         return this;
     }
 

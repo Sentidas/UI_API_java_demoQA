@@ -1,17 +1,16 @@
-package tests.api_UI_tests;
+package tests.api_UI;
 
+import app.junit.annotation.ClearProfileAfterTest;
+import app.junit.annotation.EnableDynamicTestName;
+import app.junit.annotation.WithLogin;
+import app.models.BookDetailsModel;
+import app.models.UserSession;
+import app.services.BookService;
+import app.utlis.DynamicTestNameHolder;
 import io.qameta.allure.*;
-import junit.annotation.ClearProfileAfterTest;
-import junit.annotation.EnableDynamicTestName;
-import junit.annotation.WithLogin;
-import models.BookDetailsModel;
-import models.UserSession;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.ProfilePage;
-import tests.api.BookApi;
-import utlis.DynamicTestNameHolder;
 
 import java.util.List;
 
@@ -24,12 +23,12 @@ public class AddBookTest extends BaseTest {
     @WithLogin
     @ClearProfileAfterTest()
     @EnableDynamicTestName
-   // @DisplayName("Добавление одной случайной книги в профиль пользователя")
+    // @DisplayName("Добавление одной случайной книги в профиль пользователя")
     public void bookShouldAppearInProfileAfterApiAddition(UserSession session) {
-        BookApi bookApi = new BookApi(session);
-        BookDetailsModel book = bookApi.getRandomBook();
-          DynamicTestNameHolder.set(book);
-        bookApi.addSingleBookByIsbn(book.isbn());
+        BookService bookService = BookService.with(session);
+        BookDetailsModel book = bookService.getRandomBook();
+        DynamicTestNameHolder.set(book);
+        bookService.addSingleBookByIsbn(book.isbn());
 
         new ProfilePage().openPage()
                 .checkBookWasAddedToProfile(
@@ -49,7 +48,8 @@ public class AddBookTest extends BaseTest {
     //@DisplayName("Добавление нескольких случайных книг в профиль пользователя")
     public void addBooks(UserSession session) {
 
-        List<BookDetailsModel> addedBooks = new BookApi(session).addBooksToUserProfile(4);
+        List<BookDetailsModel> addedBooks = BookService.with(session)
+                .addBooksToUserProfile(4);
         DynamicTestNameHolder.set(addedBooks);
 
         new ProfilePage().openPage()

@@ -37,6 +37,7 @@ dependencies {
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             'com.github.javafaker:javafaker:1.0.2',
             "org.junit.jupiter:junit-jupiter:5.10.0",
+            // 'org.junit.jupiter:junit-jupiter-engine:5.10.0',
             'org.slf4j:slf4j-simple:2.0.7',
             'org.aeonbits.owner:owner:1.0.12'
     )
@@ -51,22 +52,6 @@ tasks.withType(Test) {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
-        }
-    }
-}
-test {
-    doFirst {
-        def remoteUrl = System.getProperty("selenide.remote")
-        if (remoteUrl) {
-            try {
-                def url = new URL(remoteUrl.replace("/wd/hub", "/status"))
-                def connection = url.openConnection()
-                connection.connectTimeout = 3000
-                connection.readTimeout = 3000
-                connection.connect()
-            } catch (Exception e) {
-                throw new GradleException("❌ Selenoid is not reachable at $remoteUrl")
-            }
         }
     }
 }

@@ -16,14 +16,14 @@
 
 ```
 src/test/java/
-├── config/                      # Конфигурационные интерфейсы (Owner)
-├── helpers/                     # Утилиты (Cookie-хелпер, Allure listener)
-├── junit/
+├── app.helpers.config/                      # Конфигурационные интерфейсы (Owner)
+├── app.helpers/                     # Утилиты (Cookie-хелпер, Allure listener)
+├── app.helpers.junit/
 │   ├── annotation/              # JUnit 5 аннотации
 │   └── extention/              # Расширения JUnit 5
-├── models/                      # DTO-модели: Login, Book, Request/Response
+├── app.models/                      # DTO-модели: Login, Book, Request/Response
 ├── pages/                       # UI PageObjects
-├── specs/                       # RestAssured спецификации
+├── app.specs/                       # RestAssured спецификации
 ├── tests/
 │   ├── api/                     # API-клиенты: BookApi, LoginApi
 │   ├── api_UI_tests/           # Сценарии UI+API
@@ -99,7 +99,6 @@ void bookShouldBeVisibleInProfileAfterApiAddition(UserSession session) {
 
 ## 🔧 В разработке / TODO
 
-- 🔄 Разделение `BookApi` на `BookClient` и `BookService`
 - 🧪 API-only тесты (с покрытием ошибок, статусов, контрактов)
 
 ## ✅ Авторизация через API

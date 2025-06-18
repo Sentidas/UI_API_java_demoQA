@@ -1,11 +1,11 @@
-package specs;
+package app.specs;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.UserSession;
+import app.models.UserSession;
 
-import static helpers.CustomAllureListener.withCustomTemplates;
+import static app.helpers.CustomAllureListener.withCustomTemplates;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.BODY;

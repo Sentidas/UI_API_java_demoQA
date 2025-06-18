@@ -1,10 +1,10 @@
-package tests.api_UI_tests;
+package tests.api_UI;
 
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import junit.annotation.AddRandomBooks;
-import junit.annotation.WithLogin;
-import models.BookDetailsModel;
+import app.junit.annotation.AddRandomBooks;
+import app.junit.annotation.WithLogin;
+import app.models.BookDetailsModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
