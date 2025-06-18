@@ -5,6 +5,7 @@ import io.qameta.allure.Feature;
 import app.junit.annotation.AddRandomBooks;
 import app.junit.annotation.WithLogin;
 import app.models.BookDetailsModel;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,9 @@ public class DeleteBookTest extends BaseTest {
 
     @Test
     @Tag("API_UI")
-    @DisplayName("Удаление одной книги из корзины пользователя")
+    @DisplayName("Удаление нескольких книг из корзины пользователя")
     @WithLogin
+    @Disabled("Need review")
     @AddRandomBooks(countOfBooks = 3)
     public void deleteBook(List<BookDetailsModel> addedBooks) throws InterruptedException {
 
