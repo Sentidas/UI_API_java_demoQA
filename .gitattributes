@@ -1,0 +1,5 @@
+# Установка корректного окончания строк
+*.sh text eol=lf
+gradlew text eol=lf
+*.java text eol=lf
+*.yaml text eol=lf
