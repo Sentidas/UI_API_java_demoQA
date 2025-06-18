@@ -16,13 +16,14 @@ public class BaseTest {
     public static String login = "test123456",
             password = "Test123456@";
 
-
     @BeforeAll
     static void setup() {
-
-        Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com";
         RestAssured.baseURI = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.browser = "chrome";
+        Configuration.timeout = 8000;
     }
 
     @AfterEach
