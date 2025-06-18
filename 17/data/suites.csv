@@ -1,0 +1,8 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4801","negative400DeleteBookApiTest()","","Wed Jun 18 12:49:33 GMT 2025","passed","Wed Jun 18 12:49:38 GMT 2025","","tests.apiTests.DeleteBookApiTests","tests.apiTests.DeleteBookApiTests","negative400DeleteBookApiTest"
+"","13265","Добавлены книги: You Don't Know JS, Speaking JavaScript, Git Pocket Guide, Understanding ECMAScript 6","","Wed Jun 18 12:49:38 GMT 2025","failed","Wed Jun 18 12:49:51 GMT 2025","","tests.api_UI_tests.AddBookTest","tests.api_UI_tests.AddBookTest","addBooks"
+"","5007","Успешная авторизация через UI","","Wed Jun 18 12:50:20 GMT 2025","passed","Wed Jun 18 12:50:25 GMT 2025","","tests.api_UI_tests.LoginTest","tests.api_UI_tests.LoginTest","loginUITest"
+"","7207","Удаление всех книг из корзины пользователя","","Wed Jun 18 12:50:01 GMT 2025","passed","Wed Jun 18 12:50:08 GMT 2025","","tests.api_UI_tests.DeleteBookTest","tests.api_UI_tests.DeleteBookTest","deleteAllBooks"
+"","3811","Успешная авторизация через API и проверка имени пользователя в профиле через UI","","Wed Jun 18 12:50:25 GMT 2025","passed","Wed Jun 18 12:50:29 GMT 2025","","tests.api_UI_tests.LoginTest","tests.api_UI_tests.LoginTest","successfulLoginWithApiTest"
+"","12205","Удаление одной книги из корзины пользователя","","Wed Jun 18 12:50:08 GMT 2025","failed","Wed Jun 18 12:50:20 GMT 2025","","tests.api_UI_tests.DeleteBookTest","tests.api_UI_tests.DeleteBookTest","deleteBook"
+"","9202","Добавлена книга: Programming JavaScript Applications","","Wed Jun 18 12:49:51 GMT 2025","passed","Wed Jun 18 12:50:01 GMT 2025","","tests.api_UI_tests.AddBookTest","tests.api_UI_tests.AddBookTest","bookShouldAppearInProfileAfterApiAddition"
