@@ -17,5 +17,4 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
           # запуск тестов
-        run: |
-          ./gradlew clean test
+      - run: ./gradlew clean test
