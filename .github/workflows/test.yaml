@@ -1,6 +1,6 @@
 name: test
 
-on: [ push ]
+on: [ push ]  # запускать при любом push
 
 jobs:
   test:
@@ -23,7 +23,9 @@ jobs:
       - run: chmod +x gradlew
 
       # 5. Запускаем тесты (передаём URL до Selenoid)
-      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
+      - run: |
+          sleep 10
+          ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
 
       # 6. Клонируем историю предыдущих отчетов
       - name: Get Allure history
