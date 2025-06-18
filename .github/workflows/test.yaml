@@ -16,8 +16,40 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      # 3. Делаем gradlew исполняемым
+      # 3. Запускаем Selenoid (для запуска Selenide в CI)
+      - uses: Xotabu4/selenoid-github-action@v2
+
+      # 4. Делаем gradlew исполняемым
       - run: chmod +x gradlew
 
-      # 4. Запускаем тесты
-      - run: ./gradlew clean test
+      # 5. Запускаем тесты (передаём URL до Selenoid)
+      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
+
+      # 6. Клонируем историю предыдущих отчетов
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      # 7. Генерируем новый Allure отчёт
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: build/allure-results
+          allure_report: allure-report
+          allure_history: allure-history
+          gh_pages: gh-pages
+
+      # 8. Публикуем отчёт на GitHub Pages
+      - name: Deploy report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-history
+          publish_branch: gh-pages
