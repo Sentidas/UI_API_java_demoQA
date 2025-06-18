@@ -9,7 +9,7 @@ import org.openqa.selenium.Cookie;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class BrawserCookieHelper {
+public class BrowserCookieHelper {
 
     @Step("Установить авторизационные куки в браузер")
     public static void setBrowserCookie(UserSession session) {

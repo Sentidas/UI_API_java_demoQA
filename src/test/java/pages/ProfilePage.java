@@ -8,7 +8,7 @@ import tests.api_UI_tests.BaseTest;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Condition.hidden;
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -21,7 +21,10 @@ public class ProfilePage extends BasePage {
             modalDelete = $("#closeSmallModal-ok"),
             buttonDeleteOneBook = $("#delete-record-undefined"),
             buttonNext = $(".-next"),
-    bookList = $(".ReactTable");
+            bookList = $(".ReactTable"),
+            buttonDeleteBook = $(" .action-buttons #delete-record-undefined"),
+            buttonOkForDeleteBook = $("#closeSmallModal-ok");
+
 
     private final ElementsCollection bookRows = $$(".rt-tr-group");
 
@@ -45,6 +48,18 @@ public class ProfilePage extends BasePage {
         return this;
     }
 
+    @Step("Удаление книги")
+    public ProfilePage deleteRandomBook(List<BookDetailsModel> addedBooks, int countOfBooksForDelete) {
+        for (BookDetailsModel book : addedBooks) {
+            String titleBook = book.title();
+            bookRows.findBy(text(titleBook)).find("#delete-record-undefined").click();
+            $("#example-modal-sizes-title-sm").shouldBe(exist);
+            buttonOkForDeleteBook.click();
+
+        }
+        return this;
+    }
+
     @Step("Проверка, что все книги удалены из корзины")
     public void checkDeletedAllBooks() {
         bookList.shouldHave(text("No rows found"));
@@ -64,7 +79,7 @@ public class ProfilePage extends BasePage {
 
         int pageSize = 5;
 
-        for(int i = 0; i < books.size(); i += pageSize) {
+        for (int i = 0; i < books.size(); i += pageSize) {
             List<BookDetailsModel> subList = books.subList(i, Math.min(i + pageSize, books.size()));
 
 
@@ -74,20 +89,20 @@ public class ProfilePage extends BasePage {
                         .shouldHave(text(book.publisher()));
             }
 
-            if(i + pageSize < books.size()) {
+            if (i + pageSize < books.size()) {
                 next();
             }
         }
         return this;
     }
+
     @Step("Переход на следующую страницу")
     public void next() {
-        executeJavaScript("$('footer').remove();");
-        executeJavaScript("$('#fixedban').remove();");
+        removeBanners();
         buttonNext.click();
 
         // Явное ожидание: пока исчезнет "Loading..." индикатор
-        $(".-loading-inner").shouldBe(hidden);
+        // $(".-loading-inner").shouldBe(hidden);
 
     }
 }

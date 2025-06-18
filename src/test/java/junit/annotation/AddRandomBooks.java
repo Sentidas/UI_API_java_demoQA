@@ -1,6 +1,7 @@
 package junit.annotation;
 
 import junit.extention.AddBooksExtension;
+import junit.extention.BooksResolver;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.lang.annotation.ElementType;
@@ -10,7 +11,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@ExtendWith(AddBooksExtension.class)
+@ExtendWith({AddBooksExtension.class, BooksResolver.class})
 public @interface AddRandomBooks {
     int countOfBooks() default -1;
 }

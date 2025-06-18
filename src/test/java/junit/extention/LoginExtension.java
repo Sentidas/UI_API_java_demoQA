@@ -1,6 +1,6 @@
 package junit.extention;
 
-import helpers.BrawserCookieHelper;
+import helpers.BrowserCookieHelper;
 import models.UserSession;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -14,6 +14,6 @@ public class LoginExtension implements BeforeEachCallback {
     public void beforeEach(ExtensionContext context) {
         UserSession session = LoginApi.login();
         context.getStore(NAMESPACE).put(context.getUniqueId(), session);
-        BrawserCookieHelper.setBrowserCookie(session);
+        BrowserCookieHelper.setBrowserCookie(session);
     }
 }

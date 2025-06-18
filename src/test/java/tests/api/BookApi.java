@@ -63,9 +63,21 @@ public class BookApi {
     @Step("Добавление {count} уникальных книг в профиль")
     public List<BookDetailsModel> addBooksToUserProfile(int count) {
 
+        if (count <= 0) {
+            throw new IllegalArgumentException("Количество книг должно быть больше нуля");
+        }
+
         // Получаем все доступные книги
         List<BookDetailsModel> allBooks = new ArrayList<>(
                 getAllBooks().jsonPath().getList("books", BookDetailsModel.class));
+
+        if (count > allBooks.size()) {
+            throw new IllegalArgumentException("Запрошено  " + count + " книг " + ", но в магазине доступно " + allBooks.size() + " книг");
+        }
+
+        if(allBooks.isEmpty()) {
+            throw new IllegalArgumentException("В магазине отсутствуют книги");
+        }
 
         // Перемешиваем список книг для случайности
         Collections.shuffle(allBooks);
@@ -102,15 +114,18 @@ public class BookApi {
     }
 
     @Step("Добавление случайных книг для подготовки теста")
-    public void addRandomBooksForSetup(int count) {
+    public List<BookDetailsModel> generateRandomBooksForTestContext(int count) {
         List<BookDetailsModel> allBooks = new ArrayList<>(getAllBooks().jsonPath().getList("books", BookDetailsModel.class));
+
+        List<BookDetailsModel> addedBooks = new ArrayList<>();
 
         if (count == -1) {
             int randomCount = new Random().nextInt(allBooks.size() + 1);
-            addBooksToUserProfile(randomCount);
+            addedBooks = addBooksToUserProfile(randomCount);
         } else {
-            addBooksToUserProfile(count);
+            addedBooks = addBooksToUserProfile(count);
         }
+        return addedBooks;
     }
 
     @Step("Получение данных по ISBN книги")

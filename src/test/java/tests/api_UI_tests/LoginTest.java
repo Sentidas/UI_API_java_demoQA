@@ -1,6 +1,8 @@
 package tests.api_UI_tests;
 
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import junit.annotation.WithLogin;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,6 +13,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+@Epic("Авторизация")
+@Feature("Авторизация через UI")
 public class LoginTest extends BaseTest {
 
     @Test
@@ -26,7 +30,7 @@ public class LoginTest extends BaseTest {
     @Test
     @WithLogin
     @Tag("API_UI")
-    @DisplayName("Успешная авторизация через API и проверка имени пользователя в профиле через  UI")
+    @DisplayName("Успешная авторизация через API и проверка имени пользователя в профиле через UI")
     void successfulLoginWithApiTest() {
 
         new ProfilePage().openPage()

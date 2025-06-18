@@ -4,8 +4,12 @@ import com.codeborne.selenide.Configuration;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BaseTest {
 
