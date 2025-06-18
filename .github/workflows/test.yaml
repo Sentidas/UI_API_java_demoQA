@@ -4,17 +4,20 @@ on: [ push ]
 
 jobs:
   test:
-    # где запускаем
     runs-on: ubuntu-latest
 
-    # что делаем
     steps:
-      # выкачиваем репозиторий
+      # 1. Клонируем репозиторий
       - uses: actions/checkout@v4
-        # настраиваем java
+
+      # 2. Устанавливаем Java 17
       - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-          # запуск тестов
+
+      # 3. Делаем gradlew исполняемым
+      - run: chmod +x gradlew
+
+      # 4. Запускаем тесты
       - run: ./gradlew clean test
