@@ -1,6 +1,7 @@
 package app.api;
 
 import app.models.UserSession;
+import app.specs.Spec;
 
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import static io.restassured.RestAssured.given;
 public class LoginApi {
 
     public UserSession login(Map<String, String> authData) {
-        return given(requestSpec)
+        return given(Spec.requestSpec())
                 .body(authData)
                 .when()
                 .post("/Account/v1/Login")

@@ -24,15 +24,15 @@ jobs:
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
 
-      #  Делаем gradlew исполняемым (актуально для windows)
+      # Делаем gradlew исполняемым (актуально для windows)
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      # 7. Запускаем тесты (с передачей URL до Selenoid)
+      # Запускаем тесты (с передачей URL до Selenoid)
       - name: Run tests
         run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
 
-      # 8. Клонируем историю предыдущих Allure-отчётов
+      # Клонируем историю предыдущих Allure-отчётов
       - name: Get Allure history
         if: always()
         continue-on-error: true
@@ -41,7 +41,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      # 9. Генерируем новый Allure-отчёт
+      # Генерируем новый Allure-отчёт
       - name: Generate Allure report
         if: always()
         uses: simple-elf/allure-report-action@master
@@ -51,7 +51,7 @@ jobs:
           allure_history: allure-history
           gh_pages: gh-pages
 
-      # 10. Публикуем Allure-отчёт на GitHub Pages
+      #  Публикуем Allure-отчёт на GitHub Pages
       - name: Deploy Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -60,7 +60,7 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-      # 11. Выводим summary (успешные и упавшие тесты)
+      # Выводим summary (успешные и упавшие тесты)
       - name: Add summary for test results
         if: always()
         run: |
