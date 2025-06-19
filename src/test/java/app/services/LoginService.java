@@ -1,9 +1,10 @@
 package app.services;
 
 import app.api.LoginApi;
-import app.config.TestCredentials;
+import app.config.AuthConfig;
 import io.qameta.allure.Step;
 import app.models.UserSession;
+import org.aeonbits.owner.ConfigFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import static io.restassured.RestAssured.given;
 public class LoginService {
 
    private final LoginApi loginApi;
+   private final AuthConfig auth = ConfigFactory.create(AuthConfig.class);
 
     public LoginService(LoginApi loginApi) {
         this.loginApi = loginApi;
@@ -29,6 +31,11 @@ public class LoginService {
 
     @Step("Авторизация через API дефолтным пользователем")
     public UserSession loginDefault() {
-        return login(TestCredentials.USERNAME, TestCredentials.PASSWORD);
+        return login(auth.username(), auth.password());
     }
+
+//    @Step("Авторизация через API дефолтным пользователем")
+//    public UserSession loginDefault() {
+//        return login(TestCredentials.USERNAME, TestCredentials.PASSWORD);
+//    }
 }

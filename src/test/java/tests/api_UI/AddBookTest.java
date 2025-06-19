@@ -48,6 +48,7 @@ public class AddBookTest extends BaseTest {
     //@DisplayName("Добавление нескольких случайных книг в профиль пользователя")
     public void addBooks(UserSession session) {
 
+
         List<BookDetailsModel> addedBooks = BookService.with(session)
                 .addBooksToUserProfile(4);
         DynamicTestNameHolder.set(addedBooks);

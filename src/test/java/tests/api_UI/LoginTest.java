@@ -32,8 +32,9 @@ public class LoginTest extends BaseTest {
     @Tag("API_UI")
     @DisplayName("Успешная авторизация через API и проверка имени пользователя в профиле через UI")
     void successfulLoginWithApiTest() {
+        String username = "test123456";
 
         new ProfilePage().openPage()
-                .checkNameUserInProfile();
+                .checkNameUserInProfile(username);
     }
 }

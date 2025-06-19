@@ -3,6 +3,7 @@ package app.api;
 import app.models.AddBookRequestModel;
 import app.models.BookDetailsModel;
 import app.models.UserSession;
+import app.specs.Spec;
 import io.restassured.response.Response;
 
 import static app.specs.Spec.*;
@@ -21,7 +22,7 @@ public class BookApi {
     }
 
     public BookDetailsModel getBookByIsbn(String isbn) {
-        return given(requestSpec)
+        return given(Spec.requestSpec())
                 .queryParam("ISBN", isbn)
                 .when()
                 .get("/BookStore/v1/Book")
@@ -50,7 +51,7 @@ public class BookApi {
     }
 
     public Response getStoreBooks() {
-        return given(requestSpec)
+        return given(Spec.requestSpec())
                 .when()
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
