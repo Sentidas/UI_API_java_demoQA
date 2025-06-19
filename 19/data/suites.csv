@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","3368","Успешная авторизация через API и проверка имени пользователя в профиле через UI","","Thu Jun 19 13:43:22 GMT 2025","passed","Thu Jun 19 13:43:25 GMT 2025","","tests.api_UI.LoginTest","tests.api_UI.LoginTest","successfulLoginWithApiTest"
+"","5171","Успешная авторизация через UI","","Thu Jun 19 13:43:17 GMT 2025","passed","Thu Jun 19 13:43:22 GMT 2025","","tests.api_UI.LoginTest","tests.api_UI.LoginTest","loginUITest"
+"","5060","Добавлена книга: Speaking JavaScript","","Thu Jun 19 13:43:05 GMT 2025","passed","Thu Jun 19 13:43:10 GMT 2025","","tests.api_UI.AddBookTest","tests.api_UI.AddBookTest","bookShouldAppearInProfileAfterApiAddition"
+"","10811","Добавлены книги: Eloquent JavaScript, Second Edition, Git Pocket Guide, Learning JavaScript Design Patterns, Designing Evolvable Web APIs with ASP.NET","","Thu Jun 19 13:42:54 GMT 2025","passed","Thu Jun 19 13:43:05 GMT 2025","","tests.api_UI.AddBookTest","tests.api_UI.AddBookTest","addBooks"
+"","6634","Удаление всех книг из корзины пользователя","","Thu Jun 19 13:43:10 GMT 2025","passed","Thu Jun 19 13:43:17 GMT 2025","","tests.api_UI.DeleteBookTest","tests.api_UI.DeleteBookTest","deleteAllBooks"
+"","0","Удаление нескольких книг из корзины пользователя","","Thu Jun 19 13:43:17 GMT 2025","skipped","Thu Jun 19 13:43:17 GMT 2025","","tests.api_UI.DeleteBookTest","tests.api_UI.DeleteBookTest","deleteBook"
