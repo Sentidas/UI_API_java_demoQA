@@ -152,7 +152,7 @@ public class BookService {
 
     }
 
-     List<BookDetailsModel> getRandomBooks(List<BookDetailsModel> allBooks, int count) {
+    public List<BookDetailsModel> getRandomBooks(List<BookDetailsModel> allBooks, int count) {
         // Перемешиваем список книг для случайного выбора
         Collections.shuffle(allBooks);
 
