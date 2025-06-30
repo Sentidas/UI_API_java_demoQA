@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ParameterResolver;
 public class UserSessionResolver implements ParameterResolver {
     @Override
     public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
-        return parameterContext.getParameter().getType().isAssignableFrom(UserSession.class);
+        return parameterContext.getParameter().getType().equals(UserSession.class);
     }
 
     @Override
