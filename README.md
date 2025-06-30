@@ -16,18 +16,19 @@
 
 ```
 src/test/java/
-├── app.helpers.config/                      # Конфигурационные интерфейсы (Owner)
-├── app.helpers/                     # Утилиты (Cookie-хелпер, Allure listener)
-├── app.helpers.junit/
+├── app.api/                     # API
+├── app.config/                  # Конфигурационные интерфейсы (Owner)
+├── app.helpers/                 # Утилиты (Cookie-хелпер, Allure listener)
+├── app.junit/
 │   ├── annotation/              # JUnit 5 аннотации
-│   └── extention/              # Расширения JUnit 5
-├── app.models/                      # DTO-модели: Login, Book, Request/Response
+│   └── extention/               # Расширения JUnit 5
+├── app.models/                  # DTO-модели: Login, Book, Request/Response
+├── app.services/                # Сервисы: Book, Login
+├── app.spec/                    # RestAssured спецификации
 ├── pages/                       # UI PageObjects
-├── app.specs/                       # RestAssured спецификации
 ├── tests/
-│   ├── api/                     # API-клиенты: BookApi, LoginApi
-│   ├── api_UI_tests/           # Сценарии UI+API
-│   └── apiTests/               # Изолированные API-тесты
+│   ├── api_UI/                  # Сценарии UI+API
+│   └── api/                     # API-тесты
 resources/
 └── tpl/                         # Allure шаблоны для кастомного отображения
 ```
@@ -57,8 +58,6 @@ resources/
 | Selenide                | 6.19.1     | UI-тестирование                |
 | REST Assured            | 5.3.1      | API-тестирование               |
 | Allure                  | 2.21.0     | Отчётность                     |
-| Lombok                  | 8.6        | Снижение шаблонного кода       |
-| JavaFaker               | 1.0.2      | Генерация тестовых данных      |
 | Owner                   | 1.0.12     | Работа с конфигами             |
 
 ## 🚀 Запуск тестов
@@ -96,10 +95,6 @@ void bookShouldBeVisibleInProfileAfterApiAddition(UserSession session) {
                 book.publisher());
 }
 ```
-
-## 🔧 В разработке / TODO
-
-- 🧪 API-only тесты (с покрытием ошибок, статусов, контрактов)
 
 ## ✅ Авторизация через API
 
