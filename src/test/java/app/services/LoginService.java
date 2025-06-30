@@ -2,19 +2,17 @@ package app.services;
 
 import app.api.LoginApi;
 import app.config.AuthConfig;
-import io.qameta.allure.Step;
 import app.models.UserSession;
+import io.qameta.allure.Step;
 import org.aeonbits.owner.ConfigFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.restassured.RestAssured.given;
-
 public class LoginService {
 
-   private final LoginApi loginApi;
-   private final AuthConfig auth = ConfigFactory.create(AuthConfig.class);
+    private final LoginApi loginApi;
+    private final AuthConfig auth = ConfigFactory.create(AuthConfig.class);
 
     public LoginService(LoginApi loginApi) {
         this.loginApi = loginApi;
