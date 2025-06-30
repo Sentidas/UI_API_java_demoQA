@@ -7,6 +7,8 @@ import app.models.AddBookResponseModel;
 import app.models.BookDetailsModel;
 import app.models.UserSession;
 import app.services.BookService;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +18,15 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@Epic("API: Книги в профиле")
+@Feature("API: Добавление книг в профиль")
 public class AddBookTest extends BaseTest {
 
     @Test
     @WithLogin(mode = LoginMode.API)
     @ClearProfileAfterTest()
     @DisplayName("Добавление одной случайной книги в профиль пользователя")
-    public void addBook(UserSession session) {
+    public void bookShouldBeAddedToUserProfile(UserSession session) {
 
         BookService bookService = BookService.with(session);
         BookDetailsModel book = bookService.getRandomBook();
@@ -40,7 +44,7 @@ public class AddBookTest extends BaseTest {
     @WithLogin(mode = LoginMode.API)
     @ClearProfileAfterTest()
     @DisplayName("Добавление нескольких случайных книг в профиль пользователя")
-    public void addBooks(UserSession session) {
+    public void booksShouldBeAddedToUserProfile(UserSession session) {
 
         BookService book = BookService.with(session);
 

@@ -1,5 +1,6 @@
 package tests.api_UI;
 
+import app.junit.extention.LoginMode;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import app.junit.annotation.AddRandomBooks;
@@ -13,16 +14,16 @@ import pages.ProfilePage;
 
 import java.util.List;
 
-@Epic("Книги в корзине")
+@Epic("Книги в профиле")
 @Feature("Удаление книг")
 public class DeleteBookTest extends BaseTest {
 
     @Test
     @Tag("API_UI")
-    @DisplayName("Удаление всех книг из корзины пользователя")
-    @WithLogin
+    @DisplayName("Удаление всех книг из профиля пользователя")
+    @WithLogin(mode = LoginMode.UI)
     @AddRandomBooks()
-    public void deleteAllBooks() {
+    public void deleteAllBooksFromUserProfile() {
 
         new ProfilePage().openPage()
                 .deleteAllBooks()
@@ -31,11 +32,11 @@ public class DeleteBookTest extends BaseTest {
 
     @Test
     @Tag("API_UI")
-    @DisplayName("Удаление нескольких книг из корзины пользователя")
-    @WithLogin
+    @DisplayName("Удаление нескольких книг из профиля пользователя")
+    @WithLogin(mode = LoginMode.UI)
     @Disabled("Need review")
     @AddRandomBooks(countOfBooks = 3)
-    public void deleteBook(List<BookDetailsModel> addedBooks) throws InterruptedException {
+    public void deleteOneBookFromUserProfile(List<BookDetailsModel> addedBooks) {
 
         ProfilePage page = new ProfilePage();
 
