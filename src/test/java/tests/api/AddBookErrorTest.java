@@ -8,6 +8,8 @@ import app.models.AddBookResponseModel;
 import app.models.BookDetailsModel;
 import app.models.UserSession;
 import app.services.BookService;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@Epic("API: Книги в профиле")
+@Feature("API: Негативные сценарии добавления книг в профиль")
 public class AddBookErrorTest extends BaseTest {
 
 

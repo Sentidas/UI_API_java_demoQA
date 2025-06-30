@@ -15,7 +15,7 @@ import pages.ProfilePage;
 
 import java.util.List;
 
-@Epic("Книги в корзине")
+@Epic("Книги в профиле")
 @Feature("Добавление книг")
 public class AddBookTest extends BaseTest {
 
@@ -24,8 +24,7 @@ public class AddBookTest extends BaseTest {
     @WithLogin(mode = LoginMode.UI)
     @ClearProfileAfterTest()
     @EnableDynamicTestName
-    // @DisplayName("Добавление одной случайной книги в профиль пользователя")
-    public void bookShouldAppearInProfileAfterApiAddition(UserSession session) {
+    public void bookShouldAppearInUserProfileAfterApiAddition(UserSession session) {
         BookService bookService = BookService.with(session);
         BookDetailsModel book = bookService.getRandomBook();
         DynamicTestNameHolder.set(book);
@@ -43,16 +42,14 @@ public class AddBookTest extends BaseTest {
     @WithLogin
     @ClearProfileAfterTest()
     @Severity(SeverityLevel.CRITICAL)
-    @Link(value = "swagger", url = "")
     @Tag("API_UI")
     @Tag("regress")
     @EnableDynamicTestName
-    //@DisplayName("Добавление нескольких случайных книг в профиль пользователя")
-    public void addBooks(UserSession session) {
-
+    public void booksShouldAppearInUserProfileAfterApiAddition(UserSession session) {
 
         List<BookDetailsModel> addedBooks = BookService.with(session)
                 .addBooksToUserProfile(4);
+
         DynamicTestNameHolder.set(addedBooks);
 
         new ProfilePage().openPage()
