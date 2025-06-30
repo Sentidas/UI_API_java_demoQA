@@ -3,6 +3,7 @@ package tests.api_UI;
 import app.junit.annotation.ClearProfileAfterTest;
 import app.junit.annotation.EnableDynamicTestName;
 import app.junit.annotation.WithLogin;
+import app.junit.extention.LoginMode;
 import app.models.BookDetailsModel;
 import app.models.UserSession;
 import app.services.BookService;
@@ -20,7 +21,7 @@ public class AddBookTest extends BaseTest {
 
     @Test
     @Tag("API_UI")
-    @WithLogin
+    @WithLogin(mode = LoginMode.UI)
     @ClearProfileAfterTest()
     @EnableDynamicTestName
     // @DisplayName("Добавление одной случайной книги в профиль пользователя")
@@ -28,6 +29,7 @@ public class AddBookTest extends BaseTest {
         BookService bookService = BookService.with(session);
         BookDetailsModel book = bookService.getRandomBook();
         DynamicTestNameHolder.set(book);
+
         bookService.addSingleBookByIsbn(book.isbn());
 
         new ProfilePage().openPage()

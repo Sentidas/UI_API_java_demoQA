@@ -7,7 +7,7 @@ import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class BaseTest {
 
@@ -23,8 +23,6 @@ public class BaseTest {
         Configuration.browser = config.getBrowser().toLowerCase();
         Configuration.pageLoadStrategy = "eager";
         RestAssured.baseURI = config.getBaseUrl();
-
-
     }
 
     @AfterEach
