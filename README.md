@@ -75,11 +75,11 @@ resources/
 ## 🧪 Пример теста (сценарий API + UI)
 
 ```java
-@WithLogin
-@Tag("API_UI")
-@ClearProfileAfterTest
-@DisplayName("Добавление книги через API и проверка её наличия в UI-профиле")
 @Test
+@Tag("API_UI")
+@WithLogin(mode = LoginMode.UI)
+@ClearProfileAfterTest()
+@DisplayName("Добавление книги через API и проверка её наличия в UI-профиле")
 void bookShouldBeVisibleInProfileAfterApiAddition(UserSession session) {
     BookDetailsModel book = new BookApi(session)
             .getRandomBook();
