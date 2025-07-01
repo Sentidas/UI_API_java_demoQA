@@ -71,12 +71,14 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-      # Выводим summary (успешные и упавшие тесты)
+      # Выводим summary (успешные и упавшие тесты) — фикс
       - name: Add summary for test results
         if: always()
         run: |
-          passed=$(find build/allure-results -name "*.json" -exec jq -r '.status' {} \; | grep -c passed || true)
-          failed=$(find build/allure-results -name "*.json" -exec jq -r '.status' {} \; | grep -c failed || true)
+          passed=$(find build/allure-results -type f -name "*.json" \
+            -exec jq -e 'has("status") and .status == "passed"' {} \; | wc -l)
+          failed=$(find build/allure-results -type f -name "*.json" \
+            -exec jq -e 'has("status") and .status == "failed"' {} \; | wc -l)
           echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
           echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
 
@@ -85,6 +87,24 @@ jobs:
         run: |
           mkdir -p notifications
           curl -L -o notifications/allure-notifications.jar https://github.com/qa-guru/allure-notifications/releases/download/4.2.1/allure-notifications-4.2.1.jar
+
+      # Проверяем, скачался ли JAR файл — отладка
+      - name: Debug JAR file
+        if: always()
+        run: |
+          echo "📦 Проверка наличия JAR:"
+          ls -la notifications
+
+      # Проверяем структуру allure-report/widgets перед отправкой
+      - name: Debug Allure folder contents
+        if: always()
+        run: |
+          echo "🗂️ Содержимое allure-report:"
+          ls -la allure-report
+          echo "🗂️ Содержимое widgets:"
+          ls -la allure-report/widgets || true
+          echo "🧪 Проверка summary.json:"
+          cat allure-report/widgets/summary.json || true
 
       # Отправляем уведомление в Telegram
       - name: Send Telegram Notification
