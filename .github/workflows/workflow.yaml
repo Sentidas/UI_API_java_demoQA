@@ -2,31 +2,37 @@ name: test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # запускать только при push в ветку main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
+      # Клонируем проект
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Устанавливаем Java 17
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
+      # Запускаем Selenoid
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
 
+      # Делаем gradlew исполняемым (актуально для Windows)
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      # Запускаем тесты (с передачей URL до Selenoid)
       - name: Run tests
         run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
 
+      # Клонируем историю предыдущих Allure-отчётов
       - name: Get Allure history
         if: always()
         continue-on-error: true
@@ -35,6 +41,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      # Генерируем новый Allure-отчёт
       - name: Generate Allure report
         if: always()
         uses: simple-elf/allure-report-action@master
@@ -44,6 +51,7 @@ jobs:
           allure_history: allure-history
           gh_pages: gh-pages
 
+      # 👉 Временный шаг для отладки — посмотреть структуру файлов
       - name: Debug directory structure
         if: always()
         run: |
@@ -54,6 +62,7 @@ jobs:
           echo "Содержимое allure-report/:"
           ls -la allure-report || true
 
+      # Публикуем Allure-отчёт на GitHub Pages
       - name: Deploy Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -62,7 +71,7 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-      # ✅ Правильный способ: читаем итог из summary.json
+      # # Выводим общее количество прошедших и упавших тестов из файла summary.json
       - name: Add summary for test results (from Allure)
         if: always()
         run: |
@@ -72,6 +81,7 @@ jobs:
           echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
           echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
 
+      # Скачиваем Allure Notifications JAR (v4.7.0)
       - name: Download Allure Notifications Jar
         run: |
           mkdir -p notifications
@@ -79,12 +89,14 @@ jobs:
                -o notifications/allure-notifications.jar \
                https://github.com/qa-guru/allure-notifications/releases/download/4.7.0/allure-notifications-4.7.0.jar
 
+      # Проверяем, скачался ли JAR файл — отладка
       - name: Debug JAR file
         if: always()
         run: |
           echo "📦 Проверка наличия JAR:"
           ls -la notifications
 
+      # Проверяем структуру allure-report/widgets перед отправкой
       - name: Debug Allure folder contents
         if: always()
         run: |
@@ -95,6 +107,7 @@ jobs:
           echo "🧪 Проверка summary.json:"
           cat allure-report/widgets/summary.json || true
 
+      # Отправляем уведомление в Telegram
       - name: Send Telegram Notification
         if: always()
         run: |
