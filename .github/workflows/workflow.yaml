@@ -55,11 +55,11 @@ jobs:
       - name: Debug directory structure
         if: always()
         run: |
-          echo "🔍 Содержимое корня:"
+          echo "Содержимое корня:"
           ls -la
-          echo "🔍 Содержимое build/:"
+          echo "Содержимое build/:"
           ls -la build || true
-          echo "🔍 Содержимое allure-report/:"
+          echo "Содержимое allure-report/:"
           ls -la allure-report || true
 
       # Публикуем Allure-отчёт на GitHub Pages
@@ -71,23 +71,24 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-      # Выводим summary (успешные и упавшие тесты) — фикс
-      - name: Add summary for test results
+      # Выводим summary (успешные и упавшие тесты)
+      - name: Add summary for test results (safe and precise)
         if: always()
         run: |
-          passed=$(find build/allure-results -type f -name "*.json" \
-            -exec jq -e 'has("status") and .status == "passed"' {} \; | wc -l)
-          failed=$(find build/allure-results -type f -name "*.json" \
-            -exec jq -e 'has("status") and .status == "failed"' {} \; | wc -l)
+          passed=$(find build/allure-results -type f -name "*.json" ! -path "*/history/*" \
+            -exec jq -r 'select(has("status") and .status == "passed")' {} \; | wc -l)
+          failed=$(find build/allure-results -type f -name "*.json" ! -path "*/history/*" \
+            -exec jq -r 'select(has("status") and .status == "failed")' {} \; | wc -l)
           echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
           echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
 
+      # Скачиваем Allure Notifications JAR (v4.7.0)
       - name: Download Allure Notifications Jar
         run: |
           mkdir -p notifications
           curl -L --retry 5 --retry-delay 2 \
                -o notifications/allure-notifications.jar \
-               https://github.com/qa-guru/allure-notifications/releases/download/4.9.0/allure-notifications-4.9.0.jar
+               https://github.com/qa-guru/allure-notifications/releases/download/4.7.0/allure-notifications-4.7.0.jar
 
       # Проверяем, скачался ли JAR файл — отладка
       - name: Debug JAR file
