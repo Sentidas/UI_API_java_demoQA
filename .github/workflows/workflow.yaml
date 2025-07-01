@@ -72,16 +72,15 @@ jobs:
           publish_branch: gh-pages
 
       # Выводим summary (успешные и упавшие тесты)
-      - name: Add summary for test results (safe and precise)
+      - name: Add test summary from Allure report
         if: always()
         run: |
-          passed=$(find build/allure-results -type f -name "*.json" ! -path "*/history/*" \
-            -exec jq -r 'select(has("status") and .status == "passed")' {} \; | wc -l)
-          failed=$(find build/allure-results -type f -name "*.json" ! -path "*/history/*" \
-            -exec jq -r 'select(has("status") and .status == "failed")' {} \; | wc -l)
+          file="allure-report/widgets/summary.json"
+          passed=$(jq '.statistic.passed' $file)
+          failed=$(jq '.statistic.failed' $file)
           echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
           echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
-
+      
 
       # Скачиваем Allure Notifications JAR (v4.7.0)
       - name: Download Allure Notifications Jar
