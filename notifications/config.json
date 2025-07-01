@@ -5,7 +5,7 @@
     "comment": "some comment",
     "reportLink": "https://sentidas.github.io/UI_API_java_demoQA",
     "language": "ru",
-    "allureFolder": "C:\\Users\\user\\AppData\\Local\\Temp\\6743894287473382534\\allure-report",
+    "allureFolder": "build/allure-report/",
     "enableChart": true,
     "enableSuitesPublishing": true
   },
