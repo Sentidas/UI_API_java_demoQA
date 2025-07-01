@@ -9,8 +9,5 @@
     "enableChart": false,
     "enableSuitesPublishing": true
   },
-  "telegram": {
-    "token": "",
-    "chat": ""
-  }
+  "telegram": {}
 }

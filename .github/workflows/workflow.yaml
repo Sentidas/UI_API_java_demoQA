@@ -24,11 +24,11 @@ jobs:
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
 
-      # Делаем gradlew исполняемым (актуально для Windows)
+      # Делаем gradlew исполняемым
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      # Запускаем тесты (с передачей URL до Selenoid)
+      # Запускаем тесты
       - name: Run tests
         run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
 
@@ -41,7 +41,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      # Генерируем новый Allure-отчёт
+      # Генерируем Allure-отчёт
       - name: Generate Allure report
         if: always()
         uses: simple-elf/allure-report-action@master
@@ -51,7 +51,7 @@ jobs:
           allure_history: allure-history
           gh_pages: gh-pages
 
-      # 👉 Временный шаг для отладки — посмотреть структуру файлов
+      # Отладка структуры директорий
       - name: Debug directory structure
         if: always()
         run: |
@@ -62,7 +62,7 @@ jobs:
           echo "Содержимое allure-report/:"
           ls -la allure-report || true
 
-      # Публикуем Allure-отчёт на GitHub Pages
+      # Публикуем отчёт на GitHub Pages
       - name: Deploy Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -71,17 +71,7 @@ jobs:
           publish_dir: allure-history
           publish_branch: gh-pages
 
-       # Выводим общее количество прошедших и упавших тестов из файла summary.json
-      - name: Add summary for test results (from Allure)
-        if: always()
-        run: |
-          file="allure-report/widgets/summary.json"
-          passed=$(jq '.statistic.passed' $file)
-          failed=$(jq '.statistic.failed' $file)
-          echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
-          echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
-
-      # Скачиваем Allure Notifications JAR (v4.7.0)
+      # Скачиваем JAR (v4.7.0)
       - name: Download Allure Notifications Jar
         run: |
           mkdir -p notifications
@@ -94,8 +84,7 @@ jobs:
             exit 1
           fi
 
-
-      # Проверяем, скачался ли JAR файл — отладка
+      # Проверяем, скачался ли JAR файл
       - name: Debug JAR file
         if: always()
         run: |
@@ -113,7 +102,14 @@ jobs:
           echo "🧪 Проверка summary.json:"
           cat allure-report/widgets/summary.json || true
 
-      # Отправляем уведомление в Telegram
+      # 👉 Логируем токены — временно для отладки 404
+      - name: Debug secrets
+        if: always()
+        run: |
+          echo "🔐 TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}"
+          echo "🔐 TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}"
+
+      # Отправка уведомления в Telegram
       - name: Send Telegram Notification
         if: always()
         run: |
