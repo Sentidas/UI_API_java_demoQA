@@ -1,0 +1,16 @@
+{
+  "base": {
+    "project": "UI_API_java_demoQA",
+    "environment": "GitHub CI",
+    "comment": "some comment",
+    "reportLink": "https://sentidas.github.io/UI_API_java_demoQA",
+    "language": "ru",
+    "allureFolder": "build/allure-report/",
+    "enableChart": true,
+    "enableSuitesPublishing": true
+  },
+  "telegram": {
+    "token": "",
+    "chat": ""
+  }
+}

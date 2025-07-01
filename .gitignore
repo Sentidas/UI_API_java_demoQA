@@ -1,7 +1,8 @@
 HELP.md
 build/
 Dockerfile
-
+/build/
+notifications/allure-notifications-4.7.0.jar
 !**/src/main/**
 !**/src/test/**
 

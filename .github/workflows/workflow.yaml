@@ -51,7 +51,7 @@ jobs:
           allure_history: allure-history
           gh_pages: gh-pages
 
-      #  Публикуем Allure-отчёт на GitHub Pages
+      # Публикуем Allure-отчёт на GitHub Pages
       - name: Deploy Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
@@ -68,3 +68,19 @@ jobs:
           failed=$(find build/allure-results -name "*.json" -exec jq -r '.status' {} \; | grep -c failed || true)
           echo "### ✅ Passed: $passed" >> $GITHUB_STEP_SUMMARY
           echo "### ❌ Failed: $failed" >> $GITHUB_STEP_SUMMARY
+
+      # Скачиваем JAR файл для Allure Notifications
+      - name: Download Allure Notifications Jar
+        run: |
+          mkdir -p notifications
+          curl -L -o notifications/allure-notifications.jar https://github.com/qa-guru/allure-notifications/releases/download/4.2.1/allure-notifications-4.2.1.jar
+
+      # Отправляем уведомление в Telegram
+      - name: Send Telegram Notification
+        if: always()
+        run: |
+          java "-DconfigFile=notifications/config.json" \
+               "-Dnotifications.base.reportLink=https://sentidas.github.io/UI_API_java_demoQA" \
+               "-Dnotifications.telegram.token=${{ secrets.TELEGRAM_TOKEN }}" \
+               "-Dnotifications.telegram.chat=${{ secrets.TELEGRAM_CHAT_ID }}" \
+               -jar notifications/allure-notifications.jar
