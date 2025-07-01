@@ -2,14 +2,14 @@ name: test
 
 on:
   push:
-    branches: [ main ]   # запускать только при push в ветку main
+    branches: [ main ] # запускать только при push в ветку main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      #  Клонируем проект
+      # Клонируем проект
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -20,11 +20,11 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      #  Запускаем Selenoid
+      # Запускаем Selenoid
       - name: Start Selenoid
         uses: Xotabu4/selenoid-github-action@v2
 
-      # Делаем gradlew исполняемым (актуально для windows)
+      # Делаем gradlew исполняемым (актуально для Windows)
       - name: Make gradlew executable
         run: chmod +x gradlew
 
@@ -50,6 +50,17 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
           gh_pages: gh-pages
+
+      # 👉 Временный шаг для отладки — посмотреть структуру файлов
+      - name: Debug directory structure
+        if: always()
+        run: |
+          echo "🔍 Содержимое корня:"
+          ls -la
+          echo "🔍 Содержимое build/:"
+          ls -la build || true
+          echo "🔍 Содержимое allure-report/:"
+          ls -la allure-report || true
 
       # Публикуем Allure-отчёт на GitHub Pages
       - name: Deploy Allure report to GitHub Pages
