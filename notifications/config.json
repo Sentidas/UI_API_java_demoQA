@@ -6,7 +6,7 @@
     "reportLink": "https://sentidas.github.io/UI_API_java_demoQA",
     "language": "ru",
     "allureFolder": "allure-report/",
-    "enableChart": true,
+    "enableChart": false,
     "enableSuitesPublishing": true
   },
   "telegram": {
